@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "318169020002",
+    "project_id": "vegi-487fc",
+    "storage_bucket": "vegi-487fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318169020002:android:9917c9a6c0f6b26212433b",
+        "android_client_info": {
+          "package_name": "com.example.food_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318169020002-7utnf4rkj5akbo8dl3118td0bem2hs26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.food_delivery",
+            "certificate_hash": "8b9a4a50ba870e8f2e0fa06965f42798838c90d3"
+          }
+        },
+        {
+          "client_id": "318169020002-24jk47i2daimqkeklchqpb57aiteeo47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTKwEmnNFS1HtTPp7wn5d-O81KSDVxJuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318169020002-24jk47i2daimqkeklchqpb57aiteeo47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
