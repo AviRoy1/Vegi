@@ -83,6 +83,15 @@ class ReviewCartProvider with ChangeNotifier {
     return reviewCartDataList;
   }
 
+  //////  TOTAL PRICE   ////////
+  getTotalPrice() {
+    double total = 0.0;
+    reviewCartDataList.forEach((element) { 
+        total += element.cartPrice * element.cartQuantity;
+    });
+    return total;
+  }
+
 
 
   /////////////   ReviewCartDeleteFunction         //////////////////

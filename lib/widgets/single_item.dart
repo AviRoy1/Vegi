@@ -10,33 +10,33 @@ import 'package:provider/provider.dart';
 class SingleItem extends StatefulWidget {
   //const SearchItem({Key key}) : super(key: key);
 
-  bool isBool = false;
-  bool wishList = false;
+    bool isBool = false;
   String productImage;
   String productName;
+  bool wishList = false;
   int productPrice;
   String productId;
   int productQuantity;
   Function onDelete;
   var productUnit;
-
   SingleItem(
-      {this.wishList,
+      {this.productQuantity,
+      this.productId,
       this.productUnit,
       this.onDelete,
       this.isBool,
       this.productImage,
       this.productName,
       this.productPrice,
-      this.productId,
-      this.productQuantity});
+      this.wishList});
+
 
   @override
   State<SingleItem> createState() => _SingleItemState();
 }
 
 class _SingleItemState extends State<SingleItem> {
-  ReviewCartProvider reviewCartProvider;
+   ReviewCartProvider reviewCartProvider;
 
   int count;
   getCount() {
@@ -45,36 +45,30 @@ class _SingleItemState extends State<SingleItem> {
     });
   }
 
-  // @override
-  // void initState() {
-  //   getCount();
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     getCount();
     reviewCartProvider = Provider.of<ReviewCartProvider>(context);
     reviewCartProvider.getReviewCartData();
-   // print(count);
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
           child: Row(
             children: [
               Expanded(
                 child: Container(
-                  height: 100,
+                  height: 90,
                   child: Center(
-                    child: Image.network(widget.productImage),
+                    child: Image.network(
+                      widget.productImage,
+                    ),
                   ),
                 ),
               ),
               Expanded(
                 child: Container(
-                  height: 100,
+                  height: 90,
                   child: Column(
                     mainAxisAlignment: widget.isBool == false
                         ? MainAxisAlignment.spaceAround
@@ -82,18 +76,19 @@ class _SingleItemState extends State<SingleItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             widget.productName,
                             style: TextStyle(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
+                                color: textColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                           Text(
-                            "Rs.${widget.productPrice}",
+                            "${widget.productPrice}\$",
                             style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
+                                color: textColor, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -107,25 +102,19 @@ class _SingleItemState extends State<SingleItem> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           ListTile(
-                                            title: new Text('50 gram'),
+                                            title: new Text('50 Gram'),
                                             onTap: () {
                                               Navigator.pop(context);
                                             },
                                           ),
                                           ListTile(
-                                            title: new Text('250 gram'),
+                                            title: new Text('500 Gram'),
                                             onTap: () {
                                               Navigator.pop(context);
                                             },
                                           ),
                                           ListTile(
-                                            title: new Text('500 gram'),
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                          ListTile(
-                                            title: new Text('1 kg'),
+                                            title: new Text('1 Kg'),
                                             onTap: () {
                                               Navigator.pop(context);
                                             },
@@ -146,7 +135,7 @@ class _SingleItemState extends State<SingleItem> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        widget.productUnit,
+                                       "50 Gram",
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 14,
@@ -154,16 +143,17 @@ class _SingleItemState extends State<SingleItem> {
                                       ),
                                     ),
                                     Center(
-                                        child: Icon(
-                                      Icons.arrow_drop_down,
-                                      size: 20,
-                                      color: Color(0xffd1ad17),
-                                    )),
+                                      child: Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 20,
+                                        color: primaryColor,
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
                             )
-                          : Text(widget.productUnit),
+                          : Text(widget.productUnit)
                     ],
                   ),
                 ),
@@ -211,24 +201,32 @@ class _SingleItemState extends State<SingleItem> {
                                           children: [
                                             InkWell(
                                               onTap: () {
-                                                if(count==1) {
-                                                  Fluttertoast.showToast(msg: "You reach minimum limit");
+                                                if (count == 1) {
+                                                  Fluttertoast.showToast(
+                                                    msg:
+                                                        "You reach minimum limit",
+                                                
+                                                  );
                                                 } else {
                                                   setState(() {
                                                     count--;
                                                   });
-                                                  reviewCartProvider.updateReviewCartData(
-                                                    cartImage: widget.productImage,
+                                                  reviewCartProvider
+                                                      .updateReviewCartData(
+                                                    cartImage:
+                                                        widget.productImage,
                                                     cartId: widget.productId,
-                                                    cartName: widget.productName,
+                                                    cartName:
+                                                        widget.productName,
+                                                    cartPrice:
+                                                        widget.productPrice,
                                                     cartQuantity: count,
-                                                    cartPrice: widget.productPrice,
                                                   );
                                                 }
                                               },
                                               child: Icon(
                                                 Icons.remove,
-                                                color: Color(0xffd1ad17),
+                                                color: primaryColor,
                                                 size: 20,
                                               ),
                                             ),
@@ -240,22 +238,26 @@ class _SingleItemState extends State<SingleItem> {
                                             ),
                                             InkWell(
                                               onTap: () {
-                                                if(count < 10) {
+                                                if (count < 10) {
                                                   setState(() {
                                                     count++;
                                                   });
-                                                  reviewCartProvider.updateReviewCartData(
-                                                    cartImage: widget.productImage,
+                                                  reviewCartProvider
+                                                      .updateReviewCartData(
+                                                    cartImage:
+                                                        widget.productImage,
                                                     cartId: widget.productId,
-                                                    cartName: widget.productName,
+                                                    cartName:
+                                                        widget.productName,
+                                                    cartPrice:
+                                                        widget.productPrice,
                                                     cartQuantity: count,
-                                                    cartPrice: widget.productPrice,
                                                   );
                                                 }
                                               },
                                               child: Icon(
                                                 Icons.add,
-                                                color: Color(0xffd1ad17),
+                                                color: primaryColor,
                                                 size: 20,
                                               ),
                                             ),
